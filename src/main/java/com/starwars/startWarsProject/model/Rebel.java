@@ -22,7 +22,7 @@ public class Rebel {
 
     /* Metodo para atualizar a localização*/
     public void updateLocation(Location newLocation) {
-        this.location = newLocation;
+        this.setLocation(newLocation);
     }
 
     /*Metodo para reportar rebelde.
