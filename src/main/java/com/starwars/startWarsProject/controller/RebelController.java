@@ -1,10 +1,12 @@
 package com.starwars.startWarsProject.controller;
 
+import com.starwars.startWarsProject.dto.RequestRebel;
+import com.starwars.startWarsProject.dto.ResponseRebel;
 import com.starwars.startWarsProject.model.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.starwars.startWarsProject.service.RebelService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,20 +17,21 @@ import java.util.Map;
 @RequestMapping("/rebels")
 public class RebelController {
 
-    private ResistenceSystem resistenceSystem = new ResistenceSystem();
+    private RebelService rebelService = new RebelService();
 
-
-    public Location rebelLoc = new Location(19802732, 89127389, "Moon");
-    public Rebel newRebel = new Rebel("Anakin", 25, Gender.MALE, rebelLoc, 0, false, new ArrayList<>());
+    public RequestRebel newRebel = new RequestRebel("Anakin", 40, Gender.MALE, new Location(45678, 639128, "new earth"));
 
     @GetMapping
-    public List<Rebel> rebels() {
-        resistenceSystem.addRebel(this.newRebel);
-        return resistenceSystem.returnRebels();
+    public List<ResponseRebel> rebels() {
+        if (rebelService.returnRebels().isEmpty()){
+            rebelService.addRebel(newRebel);
+        }
+        return ResponseRebel.toResponse(rebelService.returnRebels());
     }
 
     @PostMapping
-    public void registerRebel(Rebel rebel) {
-        resistenceSystem.addRebel(rebel);
+    public ResponseRebel rebels(@RequestBody RequestRebel requestRebel) {
+        ResponseRebel responseRebel = new ResponseRebel(rebelService.addRebel(requestRebel));
+        return responseRebel;
     }
 }
