@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ResistenceSystem {
+public class ResistenceSystemDataBase {
     private static List<Rebel> rebelList = new ArrayList<>();
 
     public void addRebel(Rebel rebel){
-        ResistenceSystem.rebelList.add(rebel);
+        ResistenceSystemDataBase.rebelList.add(rebel);
     }
 
     public List<Rebel> returnRebels(){
-        return ResistenceSystem.rebelList;
+        return ResistenceSystemDataBase.rebelList;
     }
 
     /* Metodo para pegar um rebelde na lista pelo nome, se no futuro gerarmos ids para eles é so mudar o parametro*/
