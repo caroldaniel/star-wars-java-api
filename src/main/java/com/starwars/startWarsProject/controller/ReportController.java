@@ -18,22 +18,22 @@ public class ReportController {
 
     @GetMapping("/traitors-percentage")
     public ResponseEntity<ResponseTraitorsPercentage> traitorsPercentage() {
-        return ResponseEntity.ok(new ResponseTraitorsPercentage());
+        return ResponseEntity.ok(new ResponseTraitorsPercentage("10%"));
     }
 
     @GetMapping("/rebels-percentage")
     public  ResponseEntity<ResponseRebelsPercentage> rebelsPercentage() {
-        return ResponseEntity.ok(new ResponseRebelsPercentage());
+        return ResponseEntity.ok(new ResponseRebelsPercentage("90%"));
     }
 
     @GetMapping("/resources-info")
     public  ResponseEntity<ResponseResourcesInfo> resourcesInfo() {
-        return ResponseEntity.ok(new ResponseResourcesInfo());
+        return ResponseEntity.ok(new ResponseResourcesInfo("2.3 Armas por rebelde"));
     }
 
     @GetMapping("/loss-points")
     public  ResponseEntity<ResponseLossPoints> lossPonints() {
-        return ResponseEntity.ok(new ResponseLossPoints());
+        return ResponseEntity.ok(new ResponseLossPoints("30 Pontos perdidos"));
     }
 
 

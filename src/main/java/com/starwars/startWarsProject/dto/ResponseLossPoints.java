@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 public class ResponseLossPoints {
-    private Integer lossPoints;
+    private String lossPoints;
 }

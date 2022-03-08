@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter @Getter
 @AllArgsConstructor
 public class ResponseRebelsPercentage {
+    private String rebelsPercentage;
 }

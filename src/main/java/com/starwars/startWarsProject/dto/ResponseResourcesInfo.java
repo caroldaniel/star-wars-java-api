@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter @Setter
 @AllArgsConstructor
 public class ResponseResourcesInfo {
-    private Float itemsMean;
+    private String itemsMean;
 }
