@@ -52,6 +52,10 @@ public class ResistenceSystemDataBase {
         return (itemCount / (double) rebelList.size()) * 100;
     }
 
+    public Double itemsLossPoints() {
+        return 0.0;
+    }
+
     private List<Rebel> getTraitorList() {
         return rebelList.stream().filter(rebel -> Objects.equals(rebel.getIsTraitor(), true)).collect(Collectors.toList());
     }

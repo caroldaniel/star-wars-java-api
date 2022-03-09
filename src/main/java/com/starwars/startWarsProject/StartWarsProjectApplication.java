@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class StartWarsProjectApplication {
 	public static ResistenceSystemDataBase resistenceSystemDataBase = new ResistenceSystemDataBase();
-	public static void main(String[] args) {
+
+    public static void main(String[] args) {
 		SpringApplication.run(StartWarsProjectApplication.class, args);
 	}
 }

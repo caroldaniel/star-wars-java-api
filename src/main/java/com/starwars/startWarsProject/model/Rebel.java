@@ -21,12 +21,6 @@ public class Rebel {
     private Boolean isTraitor;
     private List<Items> inventory;
 
-    /* Metodo para atualizar a localização*/
-    public void updateLocation(Location newLocation) {
-        this.setLocation(newLocation);
-    }
-
-    /*Metodo para registrar se foi reportado*/
     public void wasReported() {
         if (this.timesReported < 3) {
             this.timesReported ++;
@@ -35,7 +29,6 @@ public class Rebel {
         }
     }
 
-    /* Metodo que atualiza o inentario */
     public void updateInventory(TradeList receiveItems, TradeList giveItems) {
         inventory.removeAll(giveItems.getItemsList());
         inventory.addAll(receiveItems.getItemsList());

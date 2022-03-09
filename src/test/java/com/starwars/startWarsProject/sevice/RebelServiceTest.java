@@ -1,6 +1,7 @@
 package com.starwars.startWarsProject.sevice;
 
 import com.starwars.startWarsProject.dto.RequestRebel;
+import com.starwars.startWarsProject.dto.RequestReportTraitor;
 import com.starwars.startWarsProject.model.*;
 import com.starwars.startWarsProject.service.RebelService;
 import org.junit.jupiter.api.Assertions;
@@ -28,14 +29,15 @@ public class RebelServiceTest {
     @Test
     public void shouldNotUpdateLocation() {
         Location newLocation = new Location(123, 456, "Casa do Woigt");
-        Assertions.assertThrows(IllegalAccessException.class, () -> rebelService.updateLocation("carlos",newLocation));
+        Assertions.assertThrows(IllegalAccessException.class, () -> rebelService.updateLocation("carlos", newLocation));
     }
 
     @Test
     void shouldReportRebel() throws IllegalAccessException {
         Rebel reporter = rebelService.addRebel(anakin);
         Rebel reported = rebelService.addRebel(darthVadder);
-        rebelService.reportRebel(reporter.getName(), reported.getName());
+        RequestReportTraitor requestReportTraitor = new RequestReportTraitor(reported.getName(),reporter.getName());
+        rebelService.reportRebel(requestReportTraitor);
         Assertions.assertEquals(reported.getTimesReported(), 1);
     }
 
@@ -44,7 +46,8 @@ public class RebelServiceTest {
         Rebel reporter = rebelService.addRebel(anakin);
         Rebel reported = rebelService.addRebel(darthVadder);
         reported.setTimesReported(3);
-        rebelService.reportRebel(reporter.getName(), reported.getName());
+        RequestReportTraitor requestReportTraitor = new RequestReportTraitor(reporter.getName(), reported.getName());
+        rebelService.reportRebel(requestReportTraitor);
         Assertions.assertTrue(reported.getIsTraitor());
     }
 //

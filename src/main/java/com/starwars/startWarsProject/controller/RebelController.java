@@ -4,19 +4,17 @@ import com.starwars.startWarsProject.dto.RequestRebel;
 import com.starwars.startWarsProject.dto.RequestReportTraitor;
 import com.starwars.startWarsProject.dto.ResponseRebel;
 import com.starwars.startWarsProject.model.*;
-import com.starwars.startWarsProject.service.RegisterRebelService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.starwars.startWarsProject.service.RebelService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/rebels")
 public class RebelController {
 
-    @Autowired
-    private final RegisterRebelService registerRebelService = new RegisterRebelService();
+
+    private final RebelService registerRebelService = new RebelService();
 
     public RequestRebel newRebel = new RequestRebel("Anakin", 40, Gender.MALE, new Location(45678, 639128, "new earth"));
 

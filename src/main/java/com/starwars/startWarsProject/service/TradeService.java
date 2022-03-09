@@ -10,12 +10,6 @@ import java.util.Objects;
 @Service
 public class TradeService {
 
-    /* Metodo da troca
-     * Recebe o rebelde que deseja trocar, e duas listas de trocas
-     * Dentro da lista de trocas há o metodo getValue() para pegar o valor total da lista
-     * se os valores totais de ambas as listas foram iguais, permite-se a troca, atualizando ambos os inventarios com o
-     * metodo updateInventory()
-     * caso não seja, retorna uma excessão */
     public void tradeItem(RequestTradeInfo requestTradeInfo) throws IllegalAccessException {
         Rebel requestRebel  = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestTradeInfo.requestTraderName);
         Rebel desiredRebel  = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestTradeInfo.desiredTraderName);
