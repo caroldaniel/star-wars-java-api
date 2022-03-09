@@ -1,18 +1,22 @@
 package com.starwars.startWarsProject.controller;
 
 import com.starwars.startWarsProject.dto.RequestRebel;
+import com.starwars.startWarsProject.dto.RequestReportTraitor;
 import com.starwars.startWarsProject.dto.ResponseRebel;
 import com.starwars.startWarsProject.model.*;
 import com.starwars.startWarsProject.service.RegisterRebelService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/rebels")
 public class RebelController {
 
-    private RegisterRebelService registerRebelService = new RegisterRebelService();
+    @Autowired
+    private final RegisterRebelService registerRebelService = new RegisterRebelService();
 
     public RequestRebel newRebel = new RequestRebel("Anakin", 40, Gender.MALE, new Location(45678, 639128, "new earth"));
 
@@ -26,7 +30,12 @@ public class RebelController {
 
     @PostMapping
     public ResponseRebel rebels(@RequestBody RequestRebel requestRebel) {
-        ResponseRebel responseRebel = new ResponseRebel(registerRebelService.addRebel(requestRebel));
-        return responseRebel;
+        return new ResponseRebel(registerRebelService.addRebel(requestRebel));
+    }
+
+    @PostMapping("/report")
+    public String reportRebel(@RequestBody RequestReportTraitor requestReportTraitor){
+        String traitorReportMessage = requestReportTraitor.getTraitorName() + " foi reportado como traidor(a)!!!";
+        return traitorReportMessage;
     }
 }

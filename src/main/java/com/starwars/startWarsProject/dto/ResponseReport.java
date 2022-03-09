@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Setter
+@Getter
 @AllArgsConstructor
-public class ResponseResourcesInfo {
-    private String itemsMean;
+public class ResponseReport {
+    private String report;
 }
