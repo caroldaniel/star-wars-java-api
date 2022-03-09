@@ -2,6 +2,7 @@ package com.starwars.startWarsProject.dto;
 
 
 import com.starwars.startWarsProject.model.Gender;
+import com.starwars.startWarsProject.model.Inventory;
 import com.starwars.startWarsProject.model.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,5 @@ public class RequestRebel {
     private Number age;
     private Gender gender;
     private Location location;
+    private Inventory inventory;
 }

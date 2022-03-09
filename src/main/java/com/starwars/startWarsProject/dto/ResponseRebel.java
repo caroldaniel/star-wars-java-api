@@ -1,9 +1,6 @@
 package com.starwars.startWarsProject.dto;
 
-import com.starwars.startWarsProject.model.Gender;
-import com.starwars.startWarsProject.model.Items;
-import com.starwars.startWarsProject.model.Location;
-import com.starwars.startWarsProject.model.Rebel;
+import com.starwars.startWarsProject.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +15,7 @@ public class ResponseRebel {
     private Number age;
     private Gender gender;
     private Location location;
-    private List<Items> inventory;
+    private Inventory inventory;
 
     public ResponseRebel(Rebel rebel){
         this.name = rebel.getName();

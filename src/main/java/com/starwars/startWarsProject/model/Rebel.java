@@ -19,7 +19,7 @@ public class Rebel {
     private Location location;
     private int timesReported;
     private Boolean isTraitor;
-    private List<Items> inventory;
+    private Inventory inventory;
 
     public void wasReported() {
         if (this.timesReported < 3) {
@@ -30,8 +30,8 @@ public class Rebel {
     }
 
     public void updateInventory(TradeList receiveItems, TradeList giveItems) {
-        inventory.removeAll(giveItems.getItemsList());
-        inventory.addAll(receiveItems.getItemsList());
+//        inventory.removeAll(giveItems.getItemsList());
+//        inventory.addAll(receiveItems.getItemsList());
     }
 
 

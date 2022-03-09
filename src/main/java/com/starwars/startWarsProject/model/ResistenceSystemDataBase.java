@@ -42,9 +42,9 @@ public class ResistenceSystemDataBase {
         Double itemCount = 0.0;
         for (Rebel rebel:
              rebelList) {
-            for (Items item:
-                  rebel.getInventory()) {
-                if (item == verifyItem) {
+            for (ItemQuantity item:
+                  rebel.getInventory().getInventory()) {
+                if (item.getItem() == verifyItem) {
                     itemCount++;
                 }
             }

@@ -15,8 +15,11 @@ public class RebelController {
 
 
     private final RebelService registerRebelService = new RebelService();
-
-    public RequestRebel newRebel = new RequestRebel("Anakin", 40, Gender.MALE, new Location(45678, 639128, "new earth"));
+    public RequestRebel newRebel = new RequestRebel(
+            "Anakin",
+            40, Gender.MALE,
+            new Location(45678, 639128, "new earth"),
+            new Inventory(2, 10, 6, 12));
 
     @GetMapping
     public List<ResponseRebel> rebels() {

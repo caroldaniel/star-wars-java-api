@@ -3,6 +3,7 @@ package com.starwars.startWarsProject.service;
 import com.starwars.startWarsProject.StartWarsProjectApplication;
 import com.starwars.startWarsProject.dto.RequestRebel;
 import com.starwars.startWarsProject.dto.RequestReportTraitor;
+import com.starwars.startWarsProject.model.Inventory;
 import com.starwars.startWarsProject.model.Items;
 import com.starwars.startWarsProject.model.Location;
 import com.starwars.startWarsProject.model.Rebel;
@@ -13,7 +14,7 @@ import java.util.List;
 public class RebelService {
 
     public Rebel addRebel(RequestRebel requestRebel){
-        Rebel rebel = new Rebel(requestRebel.getName(), requestRebel.getAge(), requestRebel.getGender(), requestRebel.getLocation(), 0, false, new ArrayList<Items>());
+        Rebel rebel = new Rebel(requestRebel.getName(), requestRebel.getAge(), requestRebel.getGender(), requestRebel.getLocation(), 0, false, requestRebel.getInventory());
         StartWarsProjectApplication.resistenceSystemDataBase.addRebel(rebel);
         return rebel;
     };
