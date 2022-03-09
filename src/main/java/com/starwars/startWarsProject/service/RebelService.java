@@ -3,12 +3,9 @@ package com.starwars.startWarsProject.service;
 import com.starwars.startWarsProject.StartWarsProjectApplication;
 import com.starwars.startWarsProject.dto.RequestRebel;
 import com.starwars.startWarsProject.dto.RequestReportTraitor;
-import com.starwars.startWarsProject.model.Inventory;
-import com.starwars.startWarsProject.model.Items;
 import com.starwars.startWarsProject.model.Location;
 import com.starwars.startWarsProject.model.Rebel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RebelService {
@@ -32,15 +29,18 @@ public class RebelService {
     public String reportRebel(RequestReportTraitor requestReportTraitor) throws IllegalAccessException {
         Rebel reporterRebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestReportTraitor.getReporter());
         Rebel reportedRebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestReportTraitor.getTraitorName());
-
+        String traitorReportMessage;
         if(reporterRebel.getIsTraitor() == true) { return "Você é um traidor"; }
 
         Integer timesReported = reportedRebel.getTimesReported();
-        if (timesReported < 3) {
-            reportedRebel.setTimesReported(timesReported++);
+        if (timesReported < 2) {
+            StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestReportTraitor.getTraitorName()).setTimesReported(timesReported + 1);
+            traitorReportMessage = requestReportTraitor.getTraitorName() + " foi reportado, mas ainda não é considerado traidor(a)!!!";
         } else {
-            reportedRebel.setIsTraitor(true);
+            StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestReportTraitor.getTraitorName()).setIsTraitor(true);
+            traitorReportMessage = requestReportTraitor.getTraitorName() + " agora é considerado traidor(a)!!!";
         }
-        return "";
+
+        return traitorReportMessage;
     }
 }

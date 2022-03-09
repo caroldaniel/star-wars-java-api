@@ -14,7 +14,7 @@ import java.util.List;
 public class RebelController {
 
 
-    private final RebelService registerRebelService = new RebelService();
+    private final RebelService rebelService = new RebelService();
     public RequestRebel newRebel = new RequestRebel(
             "Anakin",
             40, Gender.MALE,
@@ -23,20 +23,20 @@ public class RebelController {
 
     @GetMapping
     public List<ResponseRebel> rebels() {
-        if (registerRebelService.returnRebels().isEmpty()){
-            registerRebelService.addRebel(newRebel);
+        if (rebelService.returnRebels().isEmpty()){
+            rebelService.addRebel(newRebel);
         }
-        return ResponseRebel.toResponse(registerRebelService.returnRebels());
+        return ResponseRebel.toResponse(rebelService.returnRebels());
     }
 
     @PostMapping
     public ResponseRebel rebels(@RequestBody RequestRebel requestRebel) {
-        return new ResponseRebel(registerRebelService.addRebel(requestRebel));
+        return new ResponseRebel(rebelService.addRebel(requestRebel));
     }
 
-    @PostMapping("/report")
-    public String reportRebel(@RequestBody RequestReportTraitor requestReportTraitor){
-        String traitorReportMessage = requestReportTraitor.getTraitorName() + " foi reportado como traidor(a)!!!";
-        return traitorReportMessage;
+    @PostMapping("/report-traitor")
+    public String reportRebel(@RequestBody RequestReportTraitor requestReportTraitor) throws IllegalAccessException {
+        String reportTraitorMessage = rebelService.reportRebel(requestReportTraitor);
+        return reportTraitorMessage;
     }
 }

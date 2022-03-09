@@ -16,6 +16,7 @@ public class ResponseRebel {
     private Gender gender;
     private Location location;
     private Inventory inventory;
+    private Boolean isTraitor;
 
     public ResponseRebel(Rebel rebel){
         this.name = rebel.getName();
@@ -23,6 +24,7 @@ public class ResponseRebel {
         this.gender = rebel.getGender();
         this.location = rebel.getLocation();
         this.inventory = rebel.getInventory();
+        this.isTraitor = rebel.getIsTraitor();
     }
 
     public static List<ResponseRebel> toResponse(List<Rebel> rebels){
