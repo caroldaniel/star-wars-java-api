@@ -1,25 +1,25 @@
 package com.starwars.startWarsProject.controller;
 
 import com.starwars.startWarsProject.dto.RequestRebel;
+import com.starwars.startWarsProject.dto.RequestReportTraitor;
 import com.starwars.startWarsProject.dto.ResponseRebel;
 import com.starwars.startWarsProject.model.*;
 import com.starwars.startWarsProject.service.RebelService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/rebels")
 public class RebelController {
 
-    private RebelService rebelService = new RebelService();
 
-    public RequestRebel newRebel = new RequestRebel("Anakin", 40, Gender.MALE, new Location(45678, 639128, "new earth"));
+    private final RebelService rebelService = new RebelService();
+    public RequestRebel newRebel = new RequestRebel(
+            "Anakin",
+            40, Gender.MALE,
+            new Location(45678, 639128, "new earth"),
+            new Inventory(2, 10, 6, 12));
 
     @GetMapping
     public List<ResponseRebel> rebels() {
@@ -31,7 +31,12 @@ public class RebelController {
 
     @PostMapping
     public ResponseRebel rebels(@RequestBody RequestRebel requestRebel) {
-        ResponseRebel responseRebel = new ResponseRebel(rebelService.addRebel(requestRebel));
-        return responseRebel;
+        return new ResponseRebel(rebelService.addRebel(requestRebel));
+    }
+
+    @PostMapping("/report-traitor")
+    public String reportRebel(@RequestBody RequestReportTraitor requestReportTraitor) throws IllegalAccessException {
+        String reportTraitorMessage = rebelService.reportRebel(requestReportTraitor);
+        return reportTraitorMessage;
     }
 }
