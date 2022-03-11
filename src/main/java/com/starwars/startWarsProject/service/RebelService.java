@@ -30,7 +30,7 @@ public class RebelService {
         Rebel reporterRebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestReportTraitor.getReporter());
         Rebel reportedRebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestReportTraitor.getTraitorName());
         String traitorReportMessage;
-        if (reporterRebel.getIsTraitor() == true) {
+        if (reporterRebel.getIsTraitor()) {
             return "Você é um traidor";
         }
 
