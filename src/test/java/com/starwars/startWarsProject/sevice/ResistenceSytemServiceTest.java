@@ -1,10 +1,7 @@
 package com.starwars.startWarsProject.sevice;
 
 import com.starwars.startWarsProject.dto.RequestRebel;
-import com.starwars.startWarsProject.model.Gender;
-import com.starwars.startWarsProject.model.Items;
-import com.starwars.startWarsProject.model.Location;
-import com.starwars.startWarsProject.model.Rebel;
+import com.starwars.startWarsProject.model.*;
 import com.starwars.startWarsProject.service.RebelService;
 import com.starwars.startWarsProject.service.ResistenceSystemService;
 import org.junit.jupiter.api.Assertions;
@@ -14,8 +11,16 @@ public class ResistenceSytemServiceTest {
 
     RebelService rebelService = new RebelService();
     ResistenceSystemService resistenceSystemService = new ResistenceSystemService();
-    public RequestRebel anakin = new RequestRebel("Anakin", 40, Gender.MALE, new Location(45678, 639128, "new earth"));
-    public RequestRebel darthVadder = new RequestRebel("DarthVader", 50, Gender.MALE, new Location(45678, 639128, "new earth"));
+    public RequestRebel anakin = new RequestRebel("Anakin",
+            40,
+            Gender.MALE,
+            new Location(45678, 639128, "new earth"),
+            new Inventory(2, 10, 6, 12));
+    public RequestRebel darthVadder = new RequestRebel("DarthVader",
+            50,
+            Gender.MALE,
+            new Location(45678, 639128, "new earth"),
+            new Inventory(3, 0, 6, 1));
 
     @Test
     void shouldBeHalfTraitors() {
@@ -54,9 +59,22 @@ public class ResistenceSytemServiceTest {
     @Test
     void shouldHaveTwoWeaponsPerRebel() {
         Rebel rebel = rebelService.addRebel(anakin);
-        rebel.getInventory().add(Items.WEAPON);
-        rebel.getInventory().add(Items.WEAPON);
         Double percent = resistenceSystemService.resourcePerRebelPercent(Items.WEAPON);
         Assertions.assertEquals(200, percent);
+    }
+
+    @Test
+    void shouldHaveLost25Points() {
+        Rebel traitor = rebelService.addRebel(darthVadder);
+        traitor.setIsTraitor(true);
+        Double pointsLost = resistenceSystemService.itemsLossPoints();
+        Assertions.assertEquals(25, pointsLost);
+    }
+
+    @Test
+    void shouldHaveLostNoPoints() {
+        rebelService.addRebel(anakin);
+        Double pointLost = resistenceSystemService.itemsLossPoints();
+        Assertions.assertEquals(0, pointLost);
     }
 }

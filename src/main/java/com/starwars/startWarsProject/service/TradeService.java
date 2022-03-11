@@ -11,17 +11,22 @@ import java.util.Objects;
 public class TradeService {
 
     public void tradeItem(RequestTradeInfo requestTradeInfo) throws IllegalAccessException {
-        Rebel requestRebel  = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestTradeInfo.requestTraderName);
-        Rebel desiredRebel  = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestTradeInfo.desiredTraderName);
+        Rebel requestRebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestTradeInfo.requestTraderName);
+        Rebel desiredRebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(requestTradeInfo.desiredTraderName);
         if (requestRebel.getIsTraitor() || desiredRebel.getIsTraitor()) {
             throw new IllegalAccessException("ESTAMOS ENTRE TRAIDORES!!!!");
         } else {
-          if (Objects.equals(requestTradeInfo.getGivenItems().getValue(), requestTradeInfo.getReceiveItems().getValue())) {
-              requestRebel.updateInventory(requestTradeInfo.getReceiveItems(), requestTradeInfo.getGivenItems());
-              desiredRebel.updateInventory(requestTradeInfo.getGivenItems(), requestTradeInfo.getReceiveItems());
-          } else {
-              throw new IllegalArgumentException("Troca não permitida");
-          }
+            if (Objects.equals(requestTradeInfo.getGivenItems().getValue(), requestTradeInfo.getReceiveItems().getValue())) {
+                if (requestRebel.getInventory().canTrade(requestTradeInfo.getGivenItems())
+                        && desiredRebel.getInventory().canTrade(requestTradeInfo.getReceiveItems())) {
+                    requestRebel.getInventory().updateInventory(requestTradeInfo.getReceiveItems(), requestTradeInfo.getGivenItems());
+                    desiredRebel.getInventory().updateInventory(requestTradeInfo.getGivenItems(), requestTradeInfo.getReceiveItems());
+                } else {
+                    throw new IllegalArgumentException("Troca não permitida - Items não presente nos inventarios");
+                }
+            } else {
+                throw new IllegalArgumentException("Troca não permitida - Pontos não suficientes");
+            }
         }
     }
 }

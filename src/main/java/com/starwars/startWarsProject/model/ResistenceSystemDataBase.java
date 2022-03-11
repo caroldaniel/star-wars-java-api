@@ -45,7 +45,7 @@ public class ResistenceSystemDataBase {
             for (ItemQuantity item:
                   rebel.getInventory().getInventory()) {
                 if (item.getItem() == verifyItem) {
-                    itemCount++;
+                    itemCount += item.getQuantity();
                 }
             }
         }
@@ -53,7 +53,14 @@ public class ResistenceSystemDataBase {
     }
 
     public Double itemsLossPoints() {
-        return 0.0;
+        Double totalLostPoint = 0.0;
+        for (Rebel rebel:
+             rebelList) {
+            if (rebel.getIsTraitor()) {
+                totalLostPoint += rebel.getInventory().getTotalInventoryValue();
+            }
+        }
+        return totalLostPoint;
     }
 
     private List<Rebel> getTraitorList() {
