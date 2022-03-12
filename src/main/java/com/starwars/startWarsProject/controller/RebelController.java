@@ -36,8 +36,8 @@ public class RebelController {
     }
 
     @PostMapping("/update-location")
-    public ResponseEntity<String> updateLocation(@RequestBody RequestLocation requestLocation, String rebelName) throws IllegalAccessException {
-        rebelService.updateLocation(rebelName, requestLocation);
+    public ResponseEntity<String> updateLocation(@RequestBody RequestLocation requestLocation) throws IllegalAccessException {
+        rebelService.updateLocation(requestLocation);
         return ResponseEntity.ok("Localização atualizada");
     }
 

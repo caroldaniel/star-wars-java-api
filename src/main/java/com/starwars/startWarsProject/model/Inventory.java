@@ -36,47 +36,32 @@ public class Inventory {
         return totalValue;
     }
 
-    private void addItemQuantity(Items item) {
-        Optional<ItemQuantity> updateItem = inventory.stream()
-                .filter(listItem -> Objects.equals(listItem.getItem(), item)).findFirst();
-        if (updateItem.isPresent()) {
-            Integer newQuantity = updateItem.get().getQuantity() + 1;
-            updateItem.get().setQuantity(newQuantity);
-        }
-    }
-
-    private void removeItemQuantity(Items item) {
-        Optional<ItemQuantity> updateItem = inventory.stream()
-                .filter(listItem -> Objects.equals(listItem.getItem(), item)).findFirst();
-        if (updateItem.isPresent()) {
-            Integer newQuantity = updateItem.get().getQuantity() - 1;
-            updateItem.get().setQuantity(newQuantity);
-        }
-    }
-
     public void updateInventory(TradeList receiveItems, TradeList giveItems) {
-        for (Items item :
-                receiveItems.getItemsList()) {
-            addItemQuantity(item);
-        }
-
-        for (Items item : giveItems.getItemsList()) {
-            removeItemQuantity(item);
-        }
-    }
-
-    public Boolean canTrade(TradeList giveItems) {
-        Boolean canTrade;
-        for (ItemQuantity itemQuantity : inventory) {
-            int giveQuantity = (int) giveItems.getItemsList()
-                    .stream().filter(item -> Objects.equals(item, itemQuantity.getItem())).count();
-            if (giveQuantity != 0) {
-                canTrade = giveQuantity < itemQuantity.getQuantity();
-                if (!canTrade) {
-                    return false;
+        for (ItemQuantity receivedItem : receiveItems.getItemsList()) {
+            for (ItemQuantity inventoryItem : inventory) {
+                if (Objects.equals(receivedItem.getItem(), inventoryItem.getItem())) {
+                    inventoryItem.setQuantity(inventoryItem.getQuantity() + receivedItem.getQuantity());
                 }
             }
         }
-        return true;
+
+        for (ItemQuantity giveItem : giveItems.getItemsList()) {
+            for (ItemQuantity inventoryItem : inventory) {
+                if (Objects.equals(giveItem.getItem(), inventoryItem.getItem())) {
+                    inventoryItem.setQuantity(inventoryItem.getQuantity() - giveItem.getQuantity());
+                }
+            }
+        }
+    }
+
+    public Boolean hasItemsQuantity(TradeList giveItems) {
+        for (ItemQuantity itemInventoryQuantity : inventory) {
+            for (ItemQuantity itemGivenQuantity : giveItems.getItemsList()) {
+                if (Objects.equals(itemGivenQuantity.getItem(), itemInventoryQuantity.getItem())) {
+                    return (itemInventoryQuantity.getQuantity() >= itemGivenQuantity.getQuantity());
+                }
+            }
+        }
+        return false;
     }
 }

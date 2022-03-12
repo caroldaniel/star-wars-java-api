@@ -20,8 +20,8 @@ public class RebelService {
         return StartWarsProjectApplication.resistenceSystemDataBase.returnRebels();
     }
 
-    public Rebel updateLocation(String rebelName, RequestLocation newLocation) throws IllegalAccessException {
-        Rebel rebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(rebelName);
+    public Rebel updateLocation(RequestLocation newLocation) throws IllegalAccessException {
+        Rebel rebel = StartWarsProjectApplication.resistenceSystemDataBase.getRebel(newLocation.getName());
         rebel.setLocation(newLocation.toLocation());
         return rebel;
     }
