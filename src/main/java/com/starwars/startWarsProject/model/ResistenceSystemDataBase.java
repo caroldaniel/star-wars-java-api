@@ -17,6 +17,7 @@ public class ResistenceSystemDataBase {
         return ResistenceSystemDataBase.rebelList;
     }
 
+    /* Metodo para pegar um rebelde na lista pelo nome, se no futuro gerarmos ids para eles é so mudar o parametro*/
     public Rebel getRebel(String rebelName) throws IllegalAccessException {
         Optional<Rebel> foundRebel = rebelList.stream()
                 .filter(rebel -> Objects.equals(rebel.getName(), rebelName)).findFirst();
@@ -37,12 +38,12 @@ public class ResistenceSystemDataBase {
         return ((double) trueRebelList.size() / (double) rebelList.size()) * 100;
     }
 
-    public Double resourcePerRebel(Items verifyItem) {
+    public Double resourcesPerRebel(Items verifyItem) {
         Double itemCount = 0.0;
         for (Rebel rebel:
-             rebelList) {
+                rebelList) {
             for (ItemQuantity item:
-                  rebel.getInventory().getInventory()) {
+                    rebel.getInventory().getInventory()) {
                 if (item.getItem() == verifyItem) {
                     itemCount += item.getQuantity();
                 }
@@ -54,7 +55,7 @@ public class ResistenceSystemDataBase {
     public Double itemsLossPoints() {
         Double totalLostPoint = 0.0;
         for (Rebel rebel:
-             rebelList) {
+                rebelList) {
             if (rebel.getIsTraitor()) {
                 totalLostPoint += rebel.getInventory().calculateTotalInventoryValue();
             }
