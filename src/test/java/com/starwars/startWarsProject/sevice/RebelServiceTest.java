@@ -28,7 +28,7 @@ public class RebelServiceTest {
     @Test
     public void shouldUpdateLocation() throws IllegalAccessException {
         Rebel rebel = rebelService.addRebel(anakin);
-        RequestLocation newLocation = new RequestLocation("Anakin",123, 456, "Casa do Woigt");
+        RequestLocation newLocation = new RequestLocation("Anakin", 123, 456, "Casa do Woigt");
         rebelService.updateLocation(newLocation);
         Assertions.assertEquals(newLocation.getLatitude(), rebel.getLocation().getLatitude());
         Assertions.assertEquals(newLocation.getLongitude(), rebel.getLocation().getLongitude());
@@ -37,7 +37,7 @@ public class RebelServiceTest {
 
     @Test
     public void shouldNotUpdateLocation() {
-        RequestLocation newLocation = new RequestLocation("carlos", 123, 456, "Casa do Woigt");
+        RequestLocation newLocation = new RequestLocation("carlos",123, 456, "Casa do Woigt");
         Assertions.assertThrows(IllegalAccessException.class, () -> rebelService.updateLocation(newLocation));
     }
 

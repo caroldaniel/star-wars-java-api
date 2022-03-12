@@ -25,8 +25,8 @@ public class TradeService {
             throw new IllegalAccessException("ESTAMOS ENTRE TRAIDORES!!!!");
         } else {
             if (Objects.equals(requestTradeInfo.getGivenItems().getValue(), requestTradeInfo.getReceiveItems().getValue())) {
-                if (requestRebel.getInventory().canTrade(requestTradeInfo.getGivenItems())
-                        && desiredRebel.getInventory().canTrade(requestTradeInfo.getReceiveItems())) {
+                if (requestRebel.getInventory().hasItemsQuantity(requestTradeInfo.getGivenItems())
+                        && desiredRebel.getInventory().hasItemsQuantity(requestTradeInfo.getReceiveItems())) {
                     requestRebel.getInventory().updateInventory(requestTradeInfo.getReceiveItems(), requestTradeInfo.getGivenItems());
                     desiredRebel.getInventory().updateInventory(requestTradeInfo.getGivenItems(), requestTradeInfo.getReceiveItems());
                 } else {

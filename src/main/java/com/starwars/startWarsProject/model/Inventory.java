@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
-@Getter
-@Setter
+@Getter @Setter
 public class Inventory {
     private ArrayList<ItemQuantity> inventory;
 
@@ -28,7 +27,7 @@ public class Inventory {
         this.inventory = inventoryConstructor;
     }
 
-    public Integer getTotalInventoryValue() {
+    public Integer calculateTotalInventoryValue() {
         int totalValue = 0;
         for (ItemQuantity item : inventory) {
             totalValue += item.getItem().value * item.getQuantity();

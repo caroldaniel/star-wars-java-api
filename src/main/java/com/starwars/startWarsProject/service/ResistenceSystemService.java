@@ -15,7 +15,7 @@ public class ResistenceSystemService {
     }
 
     public Double resourcePerRebelPercent(Items verifyItem) {
-        return StartWarsProjectApplication.resistenceSystemDataBase.resourcePerRebelPercent(verifyItem);
+        return StartWarsProjectApplication.resistenceSystemDataBase.resourcePerRebel(verifyItem);
     }
 
     public Double itemsLossPoints() {
