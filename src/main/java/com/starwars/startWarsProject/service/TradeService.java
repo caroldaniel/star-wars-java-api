@@ -14,8 +14,7 @@ public class TradeService {
     private Boolean verifyTradeListPoints(RequestTradeInfo requestTradeInfo) {
         Integer receiveItemsValue = requestTradeInfo.getReceiveItems().getValue();
         Integer givenItemsValue = requestTradeInfo.getGivenItems().getValue();
-        if (receiveItemsValue != givenItemsValue) { return false; }
-        return true;
+        return Objects.equals(receiveItemsValue, givenItemsValue);
     }
 
     public void tradeItem(RequestTradeInfo requestTradeInfo) throws IllegalAccessException {
@@ -30,7 +29,7 @@ public class TradeService {
                     requestRebel.getInventory().updateInventory(requestTradeInfo.getReceiveItems(), requestTradeInfo.getGivenItems());
                     desiredRebel.getInventory().updateInventory(requestTradeInfo.getGivenItems(), requestTradeInfo.getReceiveItems());
                 } else {
-                    throw new IllegalArgumentException("Troca não permitida - Items não presente nos inventarios");
+                    throw  new IllegalArgumentException("Troca não permitida - Items não presente nos inventarios");
                 }
             } else {
                 throw new IllegalArgumentException("Troca não permitida - Pontos não suficientes");

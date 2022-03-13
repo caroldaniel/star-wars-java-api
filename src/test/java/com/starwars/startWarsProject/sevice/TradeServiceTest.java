@@ -31,17 +31,16 @@ public class TradeServiceTest {
     public void shouldTrade() throws IllegalAccessException {
         Rebel rebelTrader = rebelService.addRebel(anakin);
         Rebel rebelReceiver = rebelService.addRebel(darthVadder);
-        List<Items> givenListItems = new ArrayList<>();
-        givenListItems.add(Items.AMMO);
-        List<Items> receiverListItems = new ArrayList<>();
-        receiverListItems.add(Items.FOOD);
-        receiverListItems.add(Items.FOOD);
-        receiverListItems.add(Items.FOOD);
+        ArrayList<ItemQuantity> givenListItems = new ArrayList<>();
+        givenListItems.add(new ItemQuantity(Items.AMMO, 1));
+        ArrayList<ItemQuantity> receiverListItems = new ArrayList<>();
+        receiverListItems.add(new ItemQuantity(Items.FOOD, 3));
 
         RequestTradeInfo tradeInfo = new RequestTradeInfo(
                 "Anakin",
-                "DarthVader",
-                new TradeList(receiverListItems), new TradeList(givenListItems));
+                new TradeList(givenListItems),
+                "DarthVader"
+                ,new TradeList(receiverListItems));
         tradeService.tradeItem(tradeInfo);
         Assertions.assertEquals(9, rebelTrader.getInventory().getInventory().get(1).getQuantity());
         Assertions.assertEquals(1, rebelReceiver.getInventory().getInventory().get(1).getQuantity());
@@ -53,16 +52,16 @@ public class TradeServiceTest {
     void shouldNotTradePoints() {
         rebelService.addRebel(anakin);
         rebelService.addRebel(darthVadder);
-        List<Items> givenListItems = new ArrayList<>();
-        givenListItems.add(Items.WEAPON);
-        givenListItems.add(Items.WEAPON);
-        List<Items> receiverListItems = new ArrayList<>();
-        receiverListItems.add(Items.FOOD);
+        ArrayList<ItemQuantity> givenListItems = new ArrayList<>();
+        givenListItems.add(new ItemQuantity(Items.WEAPON, 2));
+        ArrayList<ItemQuantity> receiverListItems = new ArrayList<>();
+        receiverListItems.add(new ItemQuantity(Items.FOOD, 1));
 
         RequestTradeInfo tradeInfo = new RequestTradeInfo(
                 "Anakin",
+                new TradeList(givenListItems),
                 "DarthVader",
-                new TradeList(receiverListItems), new TradeList(givenListItems));
+                new TradeList(receiverListItems));
         Assertions.assertThrows(Exception.class, () -> tradeService.tradeItem(tradeInfo));
     }
 
@@ -70,25 +69,17 @@ public class TradeServiceTest {
     public void shouldNotTradeGiverDoNotHaveItens() throws IllegalAccessException {
         rebelService.addRebel(anakin);
         rebelService.addRebel(darthVadder);
-        List<Items> givenListItems = new ArrayList<>();
-        givenListItems.add(Items.WEAPON);
-        givenListItems.add(Items.WEAPON);
-        givenListItems.add(Items.WEAPON);
-        givenListItems.add(Items.WEAPON);
-        givenListItems.add(Items.WEAPON);
-        List<Items> receiverListItems = new ArrayList<>();
-        receiverListItems.add(Items.AMMO);
-        receiverListItems.add(Items.AMMO);
-        receiverListItems.add(Items.AMMO);
-        receiverListItems.add(Items.AMMO);
-        receiverListItems.add(Items.AMMO);
-        receiverListItems.add(Items.AMMO);
-        receiverListItems.add(Items.WATER);
+        ArrayList<ItemQuantity> givenListItems = new ArrayList<>();
+        givenListItems.add(new ItemQuantity(Items.WEAPON, 5));
+        ArrayList<ItemQuantity> receiverListItems = new ArrayList<>();
+        receiverListItems.add(new ItemQuantity(Items.AMMO, 6));
+        receiverListItems.add(new ItemQuantity(Items.WATER, 1));
 
         RequestTradeInfo tradeInfo = new RequestTradeInfo(
                 "Anakin",
+                 new TradeList(givenListItems),
                 "DarthVader",
-                new TradeList(receiverListItems), new TradeList(givenListItems));
+                new TradeList(receiverListItems));
         Assertions.assertThrows(Exception.class, () -> tradeService.tradeItem(tradeInfo));
     }
 
@@ -96,17 +87,16 @@ public class TradeServiceTest {
     public void shouldNotTradeReceiverDoNotHaveItens() throws IllegalAccessException {
         rebelService.addRebel(anakin);
         rebelService.addRebel(darthVadder);
-        List<Items> givenListItems = new ArrayList<>();
-        givenListItems.add(Items.FOOD);
-        givenListItems.add(Items.FOOD);
-        givenListItems.add(Items.FOOD);
-        List<Items> receiverListItems = new ArrayList<>();
-        receiverListItems.add(Items.AMMO);
+        ArrayList<ItemQuantity> givenListItems = new ArrayList<>();
+        givenListItems.add(new ItemQuantity(Items.FOOD, 3));
+        ArrayList<ItemQuantity> receiverListItems = new ArrayList<>();
+        receiverListItems.add(new ItemQuantity(Items.AMMO, 1));
 
         RequestTradeInfo tradeInfo = new RequestTradeInfo(
                 "Anakin",
+                new TradeList(givenListItems),
                 "DarthVader",
-                new TradeList(receiverListItems), new TradeList(givenListItems));
+                new TradeList(receiverListItems));
         Assertions.assertThrows(Exception.class, () -> tradeService.tradeItem(tradeInfo));
     }
 
@@ -115,17 +105,16 @@ public class TradeServiceTest {
         Rebel rebelTrader = rebelService.addRebel(anakin);
         Rebel rebelReceiver = rebelService.addRebel(darthVadder);
         rebelReceiver.setIsTraitor(true);
-        List<Items> givenListItems = new ArrayList<>();
-        givenListItems.add(Items.AMMO);
-        List<Items> receiverListItems = new ArrayList<>();
-        receiverListItems.add(Items.FOOD);
-        receiverListItems.add(Items.FOOD);
-        receiverListItems.add(Items.FOOD);
+        ArrayList<ItemQuantity> givenListItems = new ArrayList<>();
+        givenListItems.add(new ItemQuantity(Items.AMMO, 1));
+        ArrayList<ItemQuantity> receiverListItems = new ArrayList<>();
+        receiverListItems.add(new ItemQuantity(Items.FOOD, 3));
 
         RequestTradeInfo tradeInfo = new RequestTradeInfo(
                 "Anakin",
+                new TradeList(givenListItems),
                 "DarthVader",
-                new TradeList(receiverListItems), new TradeList(givenListItems));
+                new TradeList(receiverListItems));
         Assertions.assertThrows(Exception.class, () -> tradeService.tradeItem(tradeInfo));
     }
 }

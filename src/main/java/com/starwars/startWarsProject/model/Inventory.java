@@ -37,28 +37,36 @@ public class Inventory {
 
     public void updateInventory(TradeList receiveItems, TradeList giveItems) {
         for (ItemQuantity receivedItem : receiveItems.getItemsList()) {
-            for (ItemQuantity inventoryItem : inventory) {
-                if (Objects.equals(receivedItem.getItem(), inventoryItem.getItem())) {
-                    inventoryItem.setQuantity(inventoryItem.getQuantity() + receivedItem.getQuantity());
-                }
-            }
+            addItem(receivedItem);
         }
 
         for (ItemQuantity giveItem : giveItems.getItemsList()) {
-            for (ItemQuantity inventoryItem : inventory) {
-                if (Objects.equals(giveItem.getItem(), inventoryItem.getItem())) {
-                    inventoryItem.setQuantity(inventoryItem.getQuantity() - giveItem.getQuantity());
-                }
-            }
+            removeItem(giveItem);
         }
+    }
+
+    private void addItem(ItemQuantity receivedItem) {
+        Optional<ItemQuantity> currentItem = inventory.stream().filter(
+                item -> Objects.equals(item.getItem(), receivedItem.getItem()
+                )).findFirst();
+        currentItem.ifPresent(itemQuantity -> itemQuantity.setQuantity(itemQuantity.getQuantity() + receivedItem.getQuantity()));
+    }
+
+    private void removeItem(ItemQuantity giveItem) {
+        Optional<ItemQuantity> currentItem = inventory.stream().filter(
+                item -> Objects.equals(item.getItem(), giveItem.getItem()
+                )).findFirst();
+        currentItem.ifPresent(itemQuantity -> itemQuantity.setQuantity(itemQuantity.getQuantity() - giveItem.getQuantity()));
     }
 
     public Boolean hasItemsQuantity(TradeList giveItems) {
         for (ItemQuantity itemInventoryQuantity : inventory) {
-            for (ItemQuantity itemGivenQuantity : giveItems.getItemsList()) {
-                if (Objects.equals(itemGivenQuantity.getItem(), itemInventoryQuantity.getItem())) {
-                    return (itemInventoryQuantity.getQuantity() >= itemGivenQuantity.getQuantity());
-                }
+            Optional<ItemQuantity> currentItemQuantity = giveItems.getItemsList()
+                    .stream().filter(
+                            item -> Objects.equals(itemInventoryQuantity.getItem(),item.getItem()
+                            )).findFirst();
+            if (currentItemQuantity.isPresent()) {
+                return  (itemInventoryQuantity.getQuantity() >= currentItemQuantity.get().getQuantity());
             }
         }
         return false;
